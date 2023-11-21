@@ -48,14 +48,14 @@ class HomeFeatureTest extends TestCase
     {
         $people = Person::factory(10)->create();
         $personToFind = $people->first();
-        $personNotToFind = $people->find(2);
+        $personNotToFind = $people->skip(1)->first();
 
         $response = $this->get('/search?name='.$personToFind->toArray()['name']);
         
         $response->assertViewHas('people', function ($collection) use ($personToFind){
             return $collection->contains($personToFind);
         });
-        $response->assertDontSee($personNotToFind->name);
+        $response->assertDontSee($personNotToFind->toArray()['name']);
         
     }
 }
