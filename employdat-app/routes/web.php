@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\dats_controller;
 use App\Http\Controllers\dats_cv_controller;
@@ -14,7 +15,9 @@ use App\Http\Controllers\dats_cv_controller;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
 Route::get('/', [dats_controller::class, 'index'])->name('home');
+Route::get('/home', [dats_controller::class, 'index']);
 Route::get('/order/name', [dats_controller::class, 'orderName'])->name('order_name');
 Route::get('/order/email', [dats_controller::class, 'orderEmail'])->name('order_email');
 Route::get('/order/post', [dats_controller::class, 'orderPost'])->name('order_post');
@@ -31,3 +34,16 @@ Route::get('/cv{id}',[dats_cv_controller::class,'index'])->name('cvs');
 Route::post('/cv{id}', [dats_cv_controller::class,'create'])->name('add_cv');
 Route::get('/cv/{id}/{id_cv}', [dats_cv_controller::class,'delete'])->name('remove_cv');
 Route::patch('/cv/{id}/{id_cv}', [dats_cv_controller::class,'update'])->name('update_cv');
+
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__.'/auth.php';

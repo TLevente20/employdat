@@ -10,7 +10,9 @@
     <div class="banner">
         <a href="/"><h1>Employdat</h1></a>
     </div>
-    
+            @auth
+                <p>{{auth()->user()->name}}</p>
+            @endauth
     <div class="container">
         <p>Search for a person:</p>
         <form action="{{ route('search_name') }}" method="GET" role="search">
