@@ -9,6 +9,14 @@
 <body>
     <div class="banner">
         <a href="/"><h1>Employdat</h1></a>
+        {{-- 
+            WIP
+            @auth
+            <a href="{{route('logout')}}">Log out</a>
+        @endauth
+        @guest
+            <a href="/login">Log in</a>
+        @endguest --}}
     </div>
             @auth
                 <p>{{auth()->user()->name}}</p>

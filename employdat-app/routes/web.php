@@ -22,17 +22,17 @@ Route::get('/order/name', [dats_controller::class, 'orderName'])->name('order_na
 Route::get('/order/email', [dats_controller::class, 'orderEmail'])->name('order_email');
 Route::get('/order/post', [dats_controller::class, 'orderPost'])->name('order_post');
 Route::get('/search', [dats_controller::class, 'search'])->name('search_name');
-Route::get('/insert',function(){return view('insert');})->name('insert');
+Route::get('/insert',function(){return view('insert');})->name('insert')->middleware('auth');
 Route::post('/', [dats_controller::class, 'store'])->name('add_row');
-Route::delete('/{id}',[dats_controller::class,'delete'])->name('remove_row');
-Route::get('/confirm{id}',[dats_controller::class,'confirm'])->name('delete_confirm');
-Route::get('/edit{id}',[dats_controller::class,'edit'])->name('edit');
+Route::delete('/{id}',[dats_controller::class,'delete'])->name('remove_row')->middleware('auth');
+Route::get('/confirm{id}',[dats_controller::class,'confirm'])->name('delete_confirm')->middleware('auth');
+Route::get('/edit{id}',[dats_controller::class,'edit'])->name('edit')->middleware('auth');
 Route::patch('/{id}',[dats_controller::class,'update'])->name('update');
 
 
 Route::get('/cv{id}',[dats_cv_controller::class,'index'])->name('cvs');
-Route::post('/cv{id}', [dats_cv_controller::class,'create'])->name('add_cv');
-Route::get('/cv/{id}/{id_cv}', [dats_cv_controller::class,'delete'])->name('remove_cv');
+Route::post('/cv{id}', [dats_cv_controller::class,'create'])->name('add_cv')->middleware('auth');
+Route::get('/cv/{id}/{id_cv}', [dats_cv_controller::class,'delete'])->name('remove_cv')->middleware('auth');
 Route::patch('/cv/{id}/{id_cv}', [dats_cv_controller::class,'update'])->name('update_cv');
 
 
