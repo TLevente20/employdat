@@ -9,14 +9,17 @@
 <body>
     <div class="banner">
         <a href="/"><h1>Employdat</h1></a>
-        {{-- 
-            WIP
-            @auth
-            <a href="{{route('logout')}}">Log out</a>
+        @auth
+            @csrf
+            <form action="{{route('logout')}}" method="GET">
+                <button type="submit">Log out</button>
+            </form>
         @endauth
         @guest
-            <a href="/login">Log in</a>
-        @endguest --}}
+            <form action="{{route('login')}}" method="GET">
+                <button type="submit">Log in</button>
+            </form>
+        @endguest
     </div>
             @auth
                 <p>{{auth()->user()->name}}</p>

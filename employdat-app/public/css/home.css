@@ -3,15 +3,27 @@ body {
     margin: 0;
     padding: 0;
 }
+.container {
+    margin: 20px;
+}
 .banner {
     background-color: darkblue;
     color: white;
     padding: 10px;
     padding-left: 20px;
-    text-align: left;
 }
-.container {
-    margin: 20px;
+
+.banner form {
+    display: inline-block;
+    float: right;
+}
+
+.banner form button {
+    vertical-align: middle;
+}
+
+.banner h1 {
+    display: inline-block;
 }
 .headrow{
     background-color: rgb(193, 230, 253);

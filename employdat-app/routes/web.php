@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\dats_controller;
 use App\Http\Controllers\dats_cv_controller;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,8 +17,8 @@ use App\Http\Controllers\dats_cv_controller;
 |
 */
 
-Route::get('/', [dats_controller::class, 'index'])->name('home');
-Route::get('/home', [dats_controller::class, 'index']);
+Route::get('/', [dats_controller::class, 'index'])->name('home')->middleware('auth');
+Route::get('/home', [dats_controller::class, 'index'])->middleware('auth');
 Route::get('/order/name', [dats_controller::class, 'orderName'])->name('order_name');
 Route::get('/order/email', [dats_controller::class, 'orderEmail'])->name('order_email');
 Route::get('/order/post', [dats_controller::class, 'orderPost'])->name('order_post');
@@ -35,6 +36,7 @@ Route::post('/cv{id}', [dats_cv_controller::class,'create'])->name('add_cv')->mi
 Route::get('/cv/{id}/{id_cv}', [dats_cv_controller::class,'delete'])->name('remove_cv')->middleware('auth');
 Route::patch('/cv/{id}/{id_cv}', [dats_cv_controller::class,'update'])->name('update_cv');
 
+Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
