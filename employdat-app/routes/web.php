@@ -3,8 +3,10 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DatsController;
-use App\Http\Controllers\DatsCvController;
+use App\Http\Controllers\CvController;
 use App\Http\Controllers\PersonController;
+use App\Http\Controllers\SearchController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 /*
@@ -20,26 +22,25 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 Route::middleware(['auth'])->group(function () {
     Route::get('/', [PersonController::class, 'index'])->name('home');
     Route::get('/home', [PersonController::class, 'index']);
-    Route::get('/order/name', [DatsController::class, 'orderName'])->name('order_name');
-    Route::get('/order/email', [DatsController::class, 'orderEmail'])->name('order_email');
-    Route::get('/order/post', [DatsController::class, 'orderPost'])->name('order_post');
-    Route::get('/search', [DatsController::class, 'search'])->name('search_name');
+
+    Route::get('/order/{orderBy}', [OrderController::class, 'index'])->name('order');
+
+    Route::get('/search', [SearchController::class, 'index'])->name('search_name');
+    
     Route::get('/insert',function(){return view('insert');})->name('insert');
     Route::post('/', [PersonController::class, 'store'])->name('add_row');
-    Route::delete('/{id}',[PersonController::class,'destroy'])->name('remove_row');
-    Route::get('/confirm{id}',[DatsController::class,'confirm'])->name('delete_confirm');
     Route::get('/edit{id}',[PersonController::class,'edit'])->name('edit');
     Route::patch('/{id}',[PersonController::class,'update'])->name('update');
+    Route::get('/{id}',[PersonController::class,'destroy'])->name('remove_row');
 
 
-    Route::get('/cv{id}',[DatsCvController::class,'index'])->name('cvs');
-    Route::post('/cv{id}', [DatsCvController::class,'create'])->name('add_cv');
-    Route::get('/cv/{id}/{id_cv}', [DatsCvController::class,'destroy'])->name('remove_cv');
-    Route::patch('/cv/{id}/{id_cv}', [DatsCvController::class,'update'])->name('update_cv');
-
-    Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
-
+    Route::get('/cv{id}',[CvController::class,'index'])->name('cvs');
+    Route::post('/cv{id}', [CvController::class,'create'])->name('add_cv');
+    Route::get('/cv/{id}/{id_cv}', [CvController::class,'destroy'])->name('remove_cv');
+    Route::patch('/cv/{id}/{id_cv}', [CvController::class,'update'])->name('update_cv');
+    /* Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout'); */
 });
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');

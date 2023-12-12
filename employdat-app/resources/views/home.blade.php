@@ -9,17 +9,12 @@
 <body>
     <div class="banner">
         <a href="/"><h1>Employdat</h1></a>
-        @auth
-            @csrf
-            <form action="{{route('logout')}}" method="GET">
+        {{-- @auth
+            <form action="{{ route('logout') }}" method="POST">
+                @csrf
                 <button type="submit">Log out</button>
             </form>
-        @endauth
-        @guest
-            <form action="{{route('login')}}" method="GET">
-                <button type="submit">Log in</button>
-            </form>
-        @endguest
+        @endauth --}}
     </div>
     <div class="container">
         @auth
@@ -37,9 +32,9 @@
                 <tr>
                     <th class="headrow">Delete/Edit</th>
                     <th class="headrow"><a href="{{route('home')}}">ID</th>
-                    <th class="headrow"><a href="{{route('order_name')}}">Name</th></a>
-                    <th class="headrow"><a href="{{route('order_email')}}">Email Address</th></a>
-                    <th class="headrow"><a href="{{route('order_post')}}">Post</th></a>
+                    <th class="headrow"><a href="{{route('order','name')}}">Name</th></a>
+                    <th class="headrow"><a href="{{route('order','email')}}">Email Address</th></a>
+                    <th class="headrow"><a href="{{route('order','post')}}">Post</th></a>
                     <th class="headrow">CV</th>
                 </tr>
             </thead>
@@ -48,8 +43,8 @@
                 @foreach ($people as $person)
                     <tr>
                         <th class="buttons">
-                            <form class="opbutton" action="{{route('delete_confirm',$person->id)}}">
-                                <button type="submit">Delete</button>
+                            <form id="deleteForm" class="opbutton" action="{{route('remove_row',$person->id)}}">
+                                <button type="button" onclick="confirmAction()">Delete</button>
                             </form>
                             <form class="opbutton" action="{{route('edit',$person->id)}}">
                                 <button type="submit">Edit</button>
@@ -75,6 +70,19 @@
     </div><div class="paginate">
     {{$people->links()}}
 </div>
+{{-- <script>
+    function confirmAction() {
+        
+        var result = window.confirm("Are you sure you want to delete?");
+
+        if (result) {
+            document.getElementById('deleteForm').submit();
+        }
+        else{
+            return false;
+        }
+    }
+</script> --}}
 </body>
 
 </html>
