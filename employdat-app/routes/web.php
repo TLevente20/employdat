@@ -2,8 +2,9 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\dats_controller;
-use App\Http\Controllers\dats_cv_controller;
+use App\Http\Controllers\DatsController;
+use App\Http\Controllers\DatsCvController;
+use App\Http\Controllers\PersonController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 /*
@@ -16,27 +17,29 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::middleware(['auth'])->group(function () {
+    Route::get('/', [PersonController::class, 'index'])->name('home');
+    Route::get('/home', [PersonController::class, 'index']);
+    Route::get('/order/name', [DatsController::class, 'orderName'])->name('order_name');
+    Route::get('/order/email', [DatsController::class, 'orderEmail'])->name('order_email');
+    Route::get('/order/post', [DatsController::class, 'orderPost'])->name('order_post');
+    Route::get('/search', [DatsController::class, 'search'])->name('search_name');
+    Route::get('/insert',function(){return view('insert');})->name('insert');
+    Route::post('/', [PersonController::class, 'store'])->name('add_row');
+    Route::delete('/{id}',[PersonController::class,'destroy'])->name('remove_row');
+    Route::get('/confirm{id}',[DatsController::class,'confirm'])->name('delete_confirm');
+    Route::get('/edit{id}',[PersonController::class,'edit'])->name('edit');
+    Route::patch('/{id}',[PersonController::class,'update'])->name('update');
 
-Route::get('/', [dats_controller::class, 'index'])->name('home')->middleware('auth');
-Route::get('/home', [dats_controller::class, 'index'])->middleware('auth');
-Route::get('/order/name', [dats_controller::class, 'orderName'])->name('order_name');
-Route::get('/order/email', [dats_controller::class, 'orderEmail'])->name('order_email');
-Route::get('/order/post', [dats_controller::class, 'orderPost'])->name('order_post');
-Route::get('/search', [dats_controller::class, 'search'])->name('search_name');
-Route::get('/insert',function(){return view('insert');})->name('insert')->middleware('auth');
-Route::post('/', [dats_controller::class, 'store'])->name('add_row');
-Route::delete('/{id}',[dats_controller::class,'delete'])->name('remove_row')->middleware('auth');
-Route::get('/confirm{id}',[dats_controller::class,'confirm'])->name('delete_confirm')->middleware('auth');
-Route::get('/edit{id}',[dats_controller::class,'edit'])->name('edit')->middleware('auth');
-Route::patch('/{id}',[dats_controller::class,'update'])->name('update');
 
+    Route::get('/cv{id}',[DatsCvController::class,'index'])->name('cvs');
+    Route::post('/cv{id}', [DatsCvController::class,'create'])->name('add_cv');
+    Route::get('/cv/{id}/{id_cv}', [DatsCvController::class,'destroy'])->name('remove_cv');
+    Route::patch('/cv/{id}/{id_cv}', [DatsCvController::class,'update'])->name('update_cv');
 
-Route::get('/cv{id}',[dats_cv_controller::class,'index'])->name('cvs');
-Route::post('/cv{id}', [dats_cv_controller::class,'create'])->name('add_cv')->middleware('auth');
-Route::get('/cv/{id}/{id_cv}', [dats_cv_controller::class,'delete'])->name('remove_cv')->middleware('auth');
-Route::patch('/cv/{id}/{id_cv}', [dats_cv_controller::class,'update'])->name('update_cv');
+    Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
-Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+});
 
 Route::get('/dashboard', function () {
     return view('dashboard');

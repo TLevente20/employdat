@@ -6,7 +6,7 @@ use App\Models\Person;
 use App\Models\Cv;
 use Illuminate\Http\Request;
 
-class dats_cv_controller extends Controller
+class DatsCvController extends Controller
 {
     public function index($id) {
         return view('cv',['person'=>Person::where('id',$id)
@@ -28,14 +28,6 @@ class dats_cv_controller extends Controller
         ,'message'=> 'CV is created!']);
     }
 
-    public function delete($id,$id_cv){
-        Cv::destroy($id_cv);
-
-    return view('cv',['person'=>Person::where('id',$id)
-            ->with('cvs')
-            ->first()
-        ,'message'=> 'CV is deleted!']);
-    }
     public function update(Request $request,$id,$id_cv){
         $message ="";
         if($request->textarea !==Null){
@@ -53,5 +45,14 @@ class dats_cv_controller extends Controller
             ->first()
         ,'message'=>$message]);
         
+    }
+
+    public function destroy($id,$id_cv){
+        Cv::destroy($id_cv);
+
+    return view('cv',['person'=>Person::where('id',$id)
+            ->with('cvs')
+            ->first()
+        ,'message'=> 'CV is deleted!']);
     }
 }

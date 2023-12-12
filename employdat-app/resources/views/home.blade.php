@@ -21,10 +21,11 @@
             </form>
         @endguest
     </div>
-            @auth
-                <p>{{auth()->user()->name}}</p>
-            @endauth
     <div class="container">
+        @auth
+                
+                <h3>Welcome! {{auth()->user()->name}}</h3>
+            @endauth
         <p>Search for a person:</p>
         <form action="{{ route('search_name') }}" method="GET" role="search">
             <input class="search" type="text" name="name" placeholder="Enter a name or post" id="txb">

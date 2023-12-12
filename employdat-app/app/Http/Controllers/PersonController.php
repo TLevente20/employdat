@@ -5,32 +5,42 @@ namespace App\Http\Controllers;
 use App\Models\Person;
 use Illuminate\Http\Request;
 
-class dats_controller extends Controller
+class PersonController extends Controller
 {
-    public function index(){
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
         return view('home',['people'=>Person::with('cvs')
             ->cursorPaginate(8)
             //->get()
         ]);
     }
 
-
-    public function search(){
-        $name = request('name');
-        if($name==""){
-            return redirect()->route('home',['people'=>Person::with('cvs')
-            ->cursorPaginate(8)
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create(Request $request,$id)
+    {
+        $this->validate($request,array(
+            'textarea' =>'required'
+        ));
+       CV::create([
+            'person_id' => $id,
+            'body' => $request->textarea
         ]);
-        };
-        return view('home', ['people' => Person::with('cvs')
-            ->where('name', 'LIKE', "%$name%")->orWhere('post', 'LIKE', "%$name%")
-            ->cursorPaginate(8)
-            //->get()
-        ]);
+        return view('cv',['person'=>Person::where('id',$id)
+            ->with('cvs')
+            ->first()
+        ,'message'=> 'CV is created!']);
     }
 
-
-    public function store(Request $request){
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
         $this->validate($request,array(
             'name'=>'required',
             'email'=>'required|email|unique:people,email',
@@ -48,25 +58,17 @@ class dats_controller extends Controller
         ]);
     }
 
-    public function confirm($id){
-        return view('delete_confirm',['id'=>$id]);
-    }
-
-
-    public function delete($id){
-        Person::destroy($id);
-
-        return redirect()->route('home',['people'=>Person::with('cvs')
-            ->cursorPaginate(8)
-            //->get()
-        ]);
-    }
-
-
+    /**
+     * Show the form for editing the specified resource.
+     */
     public function edit($id){
         
         return view('edit',['person'=>Person::where('id',$id)->first()]);
     }
+
+    /**
+     * Update the specified resource in storage.
+     */
     public function update(Request $request,$id){
         $this->validate($request,array(
             'name'=>'required',
@@ -83,23 +85,14 @@ class dats_controller extends Controller
             //->get()
         ]);
     }
-    public function orderName(){
-        return view('home',['people'=>Person::with('cvs')
-            ->orderBy('name')
-            ->cursorPaginate(8)
-            //->get()
-        ]);
-    }
-    public function orderEmail(){
-        return view('home',['people'=>Person::with('cvs')
-            ->orderBy('email')
-            ->cursorPaginate(8)
-            //->get()
-        ]);
-    }
-    public function orderPost(){
-        return view('home',['people'=>Person::with('cvs')
-            ->orderBy('post')
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy($id){
+        Person::destroy($id);
+
+        return redirect()->route('home',['people'=>Person::with('cvs')
             ->cursorPaginate(8)
             //->get()
         ]);
