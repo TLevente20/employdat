@@ -43,10 +43,10 @@
                 @foreach ($people as $person)
                     <tr>
                         <th class="buttons">
-                            <form id="deleteForm" class="opbutton" action="{{route('remove_row',$person->id)}}">
+                            <form id="deleteForm" class="opbutton" action="{{route('person.destroy',$person->id)}}">
                                 <button type="button" onclick="confirmAction()">Delete</button>
                             </form>
-                            <form class="opbutton" action="{{route('edit',$person->id)}}">
+                            <form class="opbutton" action="{{route('person.edit',$person->id)}}">
                                 <button type="submit">Edit</button>
                             </form>
                         </th>
@@ -56,11 +56,11 @@
                         <th>{{$person->post}}</th>
                         <th>
                             @if (count($person->cvs)==0)
-                            <a class="underline" href="{{ route('cvs', $person->id) }}">{{'No CV found! Add here -->'}}</a>
+                            <a class="underline" href="{{ route('cv.show', $person->id) }}">{{'No CV found! Add here -->'}}</a>
                             @elseif((count($person->cvs)==1))
-                            <a class="underline" href="{{ route('cvs', $person->id) }}">{{'Go to CV -->'}}</a>
+                            <a class="underline" href="{{ route('cv.show', $person->id) }}">{{'Go to CV -->'}}</a>
                             @else
-                            <a class="underline" href="{{ route('cvs', $person->id) }}">{{'Go to CVs ('.count($person->cvs).') -->'}}</a>
+                            <a class="underline" href="{{ route('cv.show', $person->id) }}">{{'Go to CVs ('.count($person->cvs).') -->'}}</a>
                             @endif
                         </th>
                     </tr>

@@ -28,16 +28,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/search', [SearchController::class, 'index'])->name('search_name');
     
     Route::get('/insert',function(){return view('insert');})->name('insert');
-    Route::post('/', [PersonController::class, 'store'])->name('add_row');
-    Route::get('/edit{id}',[PersonController::class,'edit'])->name('edit');
-    Route::patch('/{id}',[PersonController::class,'update'])->name('update');
-    Route::get('/destroy{id}',[PersonController::class,'destroy'])->name('remove_row');
 
+    Route::resource('person',PersonController::class);
 
-    Route::get('/cv{id}',[CvController::class,'index'])->name('cvs');
-    Route::post('/cv{id}', [CvController::class,'create'])->name('add_cv');
-    Route::get('/cv/{id_cv}', [CvController::class,'destroy'])->name('remove_cv');
-    Route::patch('/cv/{id_cv}', [CvController::class,'update'])->name('update_cv');
+    Route::resource('cv',CvController::class);
 });
 
 

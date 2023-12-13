@@ -11,7 +11,7 @@ class CvController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index($id) {
+    public function show($id) {
         return view('cv',['person'=>Person::where('id',$id)
             ->with('cvs')
             ->first()
@@ -21,7 +21,7 @@ class CvController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Request $request,$id){
+    public function store(Request $request,$id){
         $this->validate($request,array(
             'textarea' =>'required'
         ));
