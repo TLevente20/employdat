@@ -29,16 +29,13 @@ class CvController extends Controller
             'person_id' => $id,
             'body' => $request->textarea
         ]);
-        return view('cv',['person'=>Person::where('id',$id)
-            ->with('cvs')
-            ->first()
-        ,'message'=> 'CV is created!']);
+        return back()->withInput()->with('message','CV is created');
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request,$id,$id_cv){
+    public function update(Request $request,$id_cv){
         $message ="";
         if($request->textarea !==Null){
             Cv::where('id',$id_cv)->update([
@@ -50,22 +47,15 @@ class CvController extends Controller
         }
         
         
-        return view('cv',['person'=>Person::where('id',$id)
-            ->with('cvs')
-            ->first()
-        ,'message'=>$message]);
-        
+        return back()->withInput()->with('message',$message);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id,$id_cv){
-        Cv::destroy($id_cv);
+        /**
+         * Remove the specified resource from storage.
+         */
+        public function destroy($id_cv){
+            Cv::destroy($id_cv);
 
-    return view('cv',['person'=>Person::where('id',$id)
-            ->with('cvs')
-            ->first()
-        ,'message'=> 'CV is deleted!']);
+            return back()->withInput()->with('message','CV is deleted');
     }
 }

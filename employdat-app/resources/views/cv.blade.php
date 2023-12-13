@@ -15,10 +15,9 @@
         </div>
         <div class="container">
             <h2>{{$person->name}}</h2>
-            @isset($message)
-                <div class="message">{{$message}}</div>
-            @endisset
-            
+            @if(session('message'))
+                <div class="message">{{session('message')}}</div>
+             @endif
             <table>
                 <tr>
                     <td class="input">
@@ -58,11 +57,11 @@
                                     @foreach ($person->cvs as $cv)
                                     <tr>
                                         <th >
-                                            <form action="{{route('update_cv',['id' => $person->id, 'id_cv' => $cv->id])}}" method="POST">
+                                            <form action="{{route('update_cv',[ 'id_cv' => $cv->id])}}" method="POST">
                                                 @method('PATCH')
                                                 @csrf
                                                 <textarea rows="4" cols="30" name="textarea" id="textarea" class="text">{{$cv->body}}</textarea>
-                                                <button type="submit" class="btn btn-primary" formaction="{{ route('update_cv', ['id' => $person->id, 'id_cv' => $cv->id]) }}">Edit</button>
+                                                <button type="submit" class="btn btn-primary" formaction="{{ route('update_cv', ['id_cv' => $cv->id]) }}">Edit</button>
                                                 <button onclick="window.location='{{ route('remove_cv', ['id' => $person->id, 'id_cv' => $cv->id]) }}'"class="btn btn-delete" type="button">Delete</button>
                                             </form>
                                         </th>
