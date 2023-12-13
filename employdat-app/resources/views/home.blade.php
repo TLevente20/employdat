@@ -10,7 +10,8 @@
     <div class="banner">
         <a href="/"><h1>Employdat</h1></a>
         @auth
-            <form action="{{ route('logout') }}" method="GET">
+            <form action="{{ route('logout') }}" method="POST">
+                @csrf
                 <button type="submit">Log out</button>
             </form>
         @endauth
@@ -69,7 +70,7 @@
     </div><div class="paginate">
     {{$people->links()}}
 </div>
-{{-- <script>
+<script>
     function confirmAction() {
         
         var result = window.confirm("Are you sure you want to delete?");
@@ -81,7 +82,7 @@
             return false;
         }
     }
-</script> --}}
+</script>
 </body>
 
 </html>

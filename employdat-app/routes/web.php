@@ -31,14 +31,13 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/', [PersonController::class, 'store'])->name('add_row');
     Route::get('/edit{id}',[PersonController::class,'edit'])->name('edit');
     Route::patch('/{id}',[PersonController::class,'update'])->name('update');
-    Route::get('/{id}',[PersonController::class,'destroy'])->name('remove_row');
+    Route::get('/destroy{id}',[PersonController::class,'destroy'])->name('remove_row');
 
 
     Route::get('/cv{id}',[CvController::class,'index'])->name('cvs');
     Route::post('/cv{id}', [CvController::class,'create'])->name('add_cv');
     Route::get('/cv/{id}/{id_cv}', [CvController::class,'destroy'])->name('remove_cv');
     Route::patch('/cv/{id}/{id_cv}', [CvController::class,'update'])->name('update_cv');
-    /* Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout'); */
 });
 
 
