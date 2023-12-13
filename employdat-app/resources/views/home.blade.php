@@ -9,12 +9,11 @@
 <body>
     <div class="banner">
         <a href="/"><h1>Employdat</h1></a>
-        {{-- @auth
-            <form action="{{ route('logout') }}" method="POST">
-                @csrf
+        @auth
+            <form action="{{ route('logout') }}" method="GET">
                 <button type="submit">Log out</button>
             </form>
-        @endauth --}}
+        @endauth
     </div>
     <div class="container">
         @auth

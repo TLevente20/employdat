@@ -38,7 +38,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/cv{id}', [CvController::class,'create'])->name('add_cv');
     Route::get('/cv/{id}/{id_cv}', [CvController::class,'destroy'])->name('remove_cv');
     Route::patch('/cv/{id}/{id_cv}', [CvController::class,'update'])->name('update_cv');
-    /* Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout'); */
+    /* Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout'); */
 });
 
 
