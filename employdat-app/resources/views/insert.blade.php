@@ -11,7 +11,7 @@
             <a href="/"><h1>Employdat</h1></a>
         </div>
         <div class="container">
-            <form action="{{route('add_row')}}" method="POST">
+            <form action="{{route('person.store')}}" method="POST">
                 @csrf
                 <div class="form-group">
                     <label for="name">Name:</label>
@@ -32,12 +32,6 @@
                     <label for="post">Post in Company:</label>
                     <input type="text" class="form-control" id="post" name="post" required>
                 </div>
-                <!--
-                <div class="form-group">
-                    <label for="cv">CV:</label>
-                    <textarea class="cv" id="cv" name="cv" rows="6" required></textarea>
-                </div>
-            -->
                 <button type="submit" class="btn btn-primary">Create</button>
                 <button class="btn btn-cancel" onclick="window.location='{{route('home')}} '" type="button">Cancel</button>
             </form>

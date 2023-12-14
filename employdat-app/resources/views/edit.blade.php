@@ -13,7 +13,7 @@
         <a href="/"><h1>Employdat</h1></a>
     </div>
     <div class="container">
-        <form action="{{route('update',['id' => $person->id])}}" method="POST">
+        <form action="{{route('person.update',['person' => $person->id])}}" method="POST">
             @csrf
             @method('PATCH')
             <div class="form-group">

@@ -6,6 +6,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\Cv;
 use App\Models\Person;
+use App\Models\User;
 
 class DatabaseSeeder extends Seeder
 {
@@ -17,5 +18,7 @@ class DatabaseSeeder extends Seeder
         Person::factory(10)->create();
 
         Cv::factory(20)->create();
+
+        User::factory(20)->create();
     }
 }

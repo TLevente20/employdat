@@ -15,10 +15,9 @@
         </div>
         <div class="container">
             <h2>{{$person->name}}</h2>
-            @isset($message)
-                <div class="message">{{$message}}</div>
-            @endisset
-            
+            @if(session('message'))
+                <div class="message">{{session('message')}}</div>
+             @endif
             <table>
                 <tr>
                     <td class="input">
@@ -28,7 +27,7 @@
                             <td>Create a new CV Here:</td>
                                 </tr>
                                 <tr>
-                            <td><form form action="{{route('add_cv',$person->id)}}" method="POST">
+                            <td><form form action="{{route('cv.store',['id' =>$person->id])}}" method="POST">
                                 @csrf
                                 
                                 <textarea class="text" name="textarea" id="cv" name="cv" rows="6" placeholder="Enter Cv text" required></textarea><br>
@@ -58,13 +57,19 @@
                                     @foreach ($person->cvs as $cv)
                                     <tr>
                                         <th >
-                                            <form action="{{route('update_cv',['id' => $person->id, 'id_cv' => $cv->id])}}" method="POST">
+                                            <form action="{{route('cv.update',['cv' => $cv->id])}}" method="POST">
                                                 @method('PATCH')
                                                 @csrf
                                                 <textarea rows="4" cols="30" name="textarea" id="textarea" class="text">{{$cv->body}}</textarea>
-                                                <button type="submit" class="btn btn-primary" formaction="{{ route('update_cv', ['id' => $person->id, 'id_cv' => $cv->id]) }}">Edit</button>
-                                                <button onclick="window.location='{{ route('remove_cv', ['id' => $person->id, 'id_cv' => $cv->id]) }}'"class="btn btn-delete" type="button">Delete</button>
+                                                <button type="submit" class="btn btn-primary">Edit</button>
+                                                
                                             </form>
+                                            <form action="{{route('cv.destroy',['cv' => $cv->id])}}" method="POST">
+                                                @method('DELETE')
+                                                @csrf
+                                                <button type="submit" class="btn btn-delete">Delete</button>
+                                            </form>
+                                            
                                         </th>
                                     </tr>
                                     @endforeach
