@@ -69,7 +69,6 @@
                                                 @csrf
                                                 <button type="submit" class="btn btn-delete">Delete</button>
                                             </form>
-                                            
                                         </th>
                                     </tr>
                                     @endforeach

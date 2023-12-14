@@ -14,6 +14,9 @@
                 @csrf
                 <button type="submit">Log out</button>
             </form>
+            <form action="{{ route('profile.index') }}" method="GET">
+                <button type="submit">View users</button>
+            </form>
         @endauth
     </div>
     <div class="container">
