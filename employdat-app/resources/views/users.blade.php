@@ -21,7 +21,7 @@
     </div>
     <div class="container">
         <p>Search for a user:</p>
-        <form action="{{ route('search_name') }}" method="GET" role="search">
+        <form action="{{ route('user.search') }}" method="GET" role="search">
             <input class="search" type="text" name="name" placeholder="Enter a name" id="txb">
             <button id="b1">Search</button>
         </form>
@@ -30,10 +30,10 @@
             <thead>
                 <tr>
                     <th class="headrow">Delete User</th>
-                    <th class="headrow">Name</th>
-                    <th class="headrow">Created At</th>
-                    <th class="headrow">Eamil Adress</th>
-                    <th class="headrow">Email verification status</th>
+                    <th class="headrow"><a href="{{route('user.order','name')}}">Name</a></th>
+                    <th class="headrow"><a href="{{route('user.order','created_at')}}">Created At</a></th>
+                    <th class="headrow"><a href="{{route('user.order','email')}}">Eamil Adress</a></th>
+                    <th class="headrow"><a href="{{route('user.order','email_verified_at')}}">Email verification status</a></th>
                 </tr>
             </thead>
             <tbody>
