@@ -43,7 +43,9 @@
                 @foreach ($people as $person)
                     <tr>
                         <th class="buttons">
-                            <form id="deleteForm" class="opbutton" action="{{route('person.destroy',$person->id)}}">
+                            <form id="deleteForm" method="POST" class="opbutton" action="{{ route('person.destroy', $person->id) }}">
+                                @csrf
+                                @method('DELETE')
                                 <button type="button" onclick="confirmAction()">Delete</button>
                             </form>
                             <form class="opbutton" action="{{route('person.edit',$person->id)}}">

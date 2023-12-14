@@ -21,10 +21,11 @@ class CvController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function store(Request $request,$id){
+    public function store(Request $request){
         $this->validate($request,array(
             'textarea' =>'required'
         ));
+        $id = $request->id;
        CV::create([
             'person_id' => $id,
             'body' => $request->textarea
@@ -36,7 +37,7 @@ class CvController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request,$id_cv){
-        $message ="";
+        
         if($request->textarea !==Null){
             Cv::where('id',$id_cv)->update([
                 'body'=>$request->textarea
@@ -53,7 +54,7 @@ class CvController extends Controller
         /**
          * Remove the specified resource from storage.
          */
-        public function destroy($id_cv){
+        public function destroy(Request $request,$id_cv){
             Cv::destroy($id_cv);
 
             return back()->withInput()->with('message','CV is deleted');

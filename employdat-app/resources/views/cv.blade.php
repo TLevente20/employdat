@@ -27,7 +27,7 @@
                             <td>Create a new CV Here:</td>
                                 </tr>
                                 <tr>
-                            <td><form form action="{{route('cv.store',$person->id)}}" method="POST">
+                            <td><form form action="{{route('cv.store',['id' =>$person->id])}}" method="POST">
                                 @csrf
                                 
                                 <textarea class="text" name="textarea" id="cv" name="cv" rows="6" placeholder="Enter Cv text" required></textarea><br>
@@ -61,9 +61,15 @@
                                                 @method('PATCH')
                                                 @csrf
                                                 <textarea rows="4" cols="30" name="textarea" id="textarea" class="text">{{$cv->body}}</textarea>
-                                                <button type="submit" class="btn btn-primary" formaction="{{ route('cv.update', ['cv' => $cv->id]) }}">Edit</button>
-                                                <button onclick="window.location='{{ route('cv.destroy', ['id' => $person->id, 'cv' => $cv->id]) }}'"class="btn btn-delete" type="button">Delete</button>
+                                                <button type="submit" class="btn btn-primary">Edit</button>
+                                                
                                             </form>
+                                            <form action="{{route('cv.destroy',['cv' => $cv->id])}}" method="POST">
+                                                @method('DELETE')
+                                                @csrf
+                                                <button type="submit" class="btn btn-delete">Delete</button>
+                                            </form>
+                                            
                                         </th>
                                     </tr>
                                     @endforeach

@@ -31,7 +31,11 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('person',PersonController::class);
 
+    
+
     Route::resource('cv',CvController::class);
+
+    
 });
 
 
