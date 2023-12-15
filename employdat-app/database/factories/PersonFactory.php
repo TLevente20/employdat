@@ -19,7 +19,7 @@ class PersonFactory extends Factory
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
-            'post' => fake()->jobTitle()
+            'post' => fake()->jobTitle(),
         ];
     }
 }

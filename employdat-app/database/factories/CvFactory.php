@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Person;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Cv>
@@ -21,7 +21,7 @@ class CvFactory extends Factory
 
         return [
             'person_id' => $personId,
-            'body' => fake()->text()
+            'body' => fake()->text(),
         ];
     }
 }
