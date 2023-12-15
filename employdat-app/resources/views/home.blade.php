@@ -29,7 +29,8 @@
             <input class="search" type="text" name="name" placeholder="Enter a name or post" id="txb">
             <button id="b1">Search</button>
         </form>
-        <button onclick="window.location='{{route('insert')}} '">Add new record</button>        
+        <div class="adding"><a href="{{route('insert')}}">Add new record</a> </div>
+               
         <table>
             <thead>
                 <tr>

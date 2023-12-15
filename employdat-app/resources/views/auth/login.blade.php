@@ -17,7 +17,7 @@
         <!-- Email Address -->
         <div>
             <x-input-label for="email" :value="__('Email')" />
-            <x-text-input class="form-controll" id="email" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
+            <x-text-input class="form-control" id="email" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
             <x-input-error :messages="$errors->get('email')"/>
         </div>
 
@@ -25,7 +25,7 @@
         <div>
             <x-input-label for="password" :value="__('Password')" />
 
-            <x-text-input class="form-controll" id="password" 
+            <x-text-input class="form-control" id="password" 
                             type="password"
                             name="password"
                             required autocomplete="current-password" />

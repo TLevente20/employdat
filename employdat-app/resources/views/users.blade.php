@@ -26,7 +26,8 @@
             <input class="search" type="text" name="name" placeholder="Enter a name" id="txb">
             <button id="b1">Search</button>
         </form>
-        <button onclick="window.location='{{route('profile.create')}} '">Register new user</button>       
+        <div class="adding"><a href="{{route('profile.create')}}">Register new user</a> </div>
+              
         <table>
             <thead>
                 <tr>

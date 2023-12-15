@@ -16,19 +16,19 @@
                 @csrf
                 <div class="form-group">
                     <label for="name">Name:</label>
-                    <input id="name" class="form-controll" type="text" name="name" :value="old('name')" required autofocus autocomplete="name">
+                    <input id="name" class="form-control" type="text" name="name" :value="old('name')" required autofocus autocomplete="name">
                     <input-error :messages="$errors->get('name')" class="mt-2" />
                 </div>
                 
                 <div class="form-group">
                     <label for="email">Email Address:</label>
-                    <input id="email" class="form-controll" type="email" name="email" :value="old('email')" required autocomplete="username" />
+                    <input id="email" class="form-control" type="email" name="email" :value="old('email')" required autocomplete="username" />
                     <input-error :messages="$errors->get('email')" class="mt-2" />
                 </div>
                 
                 <div class="form-group">
                     <label for="email">Password:</label>
-                    <input id="password" class="form-controll"
+                    <input id="password" class="form-control"
                             type="password"
                             name="password"
                             required autocomplete="new-password" />
@@ -37,7 +37,7 @@
                 </div>
                 <div class="form-group">
                     <label for="email">Password Confirm:</label>
-                    <input id="password_confirmation" class="form-controll"
+                    <input id="password_confirmation" class="form-control"
                             type="password"
                             name="password_confirmation" required autocomplete="new-password" />
 

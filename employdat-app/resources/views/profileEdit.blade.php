@@ -17,13 +17,13 @@
                 @method('PATCH')
                 <div class="form-group">
                     <label for="name">Name:</label>
-                    <input id="name" class="form-controll" type="text" name="name"  value="{{$user->name}}" required autofocus autocomplete="name">
+                    <input id="name" class="form-control" type="text" name="name"  value="{{$user->name}}" required autofocus autocomplete="name">
                     <input-error :messages="$errors->get('name')" class="mt-2" />
                 </div>
                 
                 <div class="form-group">
                     <label for="email">Email Address:</label>
-                    <input id="email" class="form-controll" type="email" name="email" value="{{$user->email}}" required autocomplete="username" />
+                    <input id="email" class="form-control" type="email" name="email" value="{{$user->email}}" required autocomplete="username" />
                     <input-error :messages="$errors->get('email')" class="mt-2" />
                 </div>
                 
