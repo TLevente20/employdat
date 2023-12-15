@@ -6,7 +6,9 @@ use App\Http\Controllers\DatsController;
 use App\Http\Controllers\CvController;
 use App\Http\Controllers\PersonController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\UserSearchController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\UserOrderController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 /*
@@ -24,18 +26,18 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/home', [PersonController::class, 'index']);
 
     Route::get('/order/{orderBy}', [OrderController::class, 'index'])->name('order');
+    Route::get('/profile/order/{orderBy}', [UserOrderController::class, 'index'])->name('user.order');
 
     Route::get('/search', [SearchController::class, 'index'])->name('search_name');
+    Route::get('/profile/search', [UserSearchController::class, 'index'])->name('user.search');
     
     Route::get('/insert',function(){return view('insert');})->name('insert');
 
     Route::resource('person',PersonController::class);
 
-    
-
     Route::resource('cv',CvController::class);
-
     
+    Route::resource('profile',ProfileController::class);  
 });
 
 
@@ -43,10 +45,5 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
 
 require __DIR__.'/auth.php';

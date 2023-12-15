@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Person;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -13,16 +14,18 @@ class DatsDataTest extends TestCase
  
     public function test_if_home_gets_item() : void 
     {
+        $user = User::factory()->create();
         $people = Person::factory(3)->create();
         $person = $people->first();
 
         $this->assertModelExists($person);
 
-        $response = $this->get('/');
+        $response = $this->actingAs($user)->get('/');
 
         $response->assertViewHas('people',  function ($collection) use ($person){
             return $collection->contains($person);
         });
+        $response->assertStatus(200);
     }
 
     public function test_if_people_table_has_records():void
@@ -37,15 +40,18 @@ class DatsDataTest extends TestCase
 
     public function test_person_can_be_deleted():void
     {
+        $user = User::factory()->create();
         $person = Person::factory()->create()->toArray();
 
         $this->assertDatabaseHas('people',$person);
-        $this->call('delete','/'.$person["id"]);
+        $response = $this->actingAs($user)->delete('person/'.$person["id"]);
         $this->assertDatabaseMissing('people',$person);
+        $response->assertStatus(302);
     }
 
     public function test_person_can_be_edited_validation_confirmed():void
     {
+        $user = User::factory()->create();
         $person = Person::factory()->create()->toArray();
 
         $this->assertDatabaseHas('people',[
@@ -54,7 +60,7 @@ class DatsDataTest extends TestCase
             "post" => $person["post"]
         ]);
 
-        $this->call('patch','/'.$person["id"],[
+        $response = $this->actingAs($user)->put('person/'.$person["id"],[
             "name" => "John Doe",
             "email" => $person["email"],
             "post" => $person["post"]
@@ -65,10 +71,12 @@ class DatsDataTest extends TestCase
             "email" => $person["email"],
             "post" => $person["post"]
         ]);
+        $response->assertStatus(302);
     }
 
     public function test_person_can_be_edited_validation_fails():void
     {
+        $user = User::factory()->create();
         $person = Person::factory()->create()->toArray();
 
         $this->assertDatabaseHas('people',[
@@ -77,7 +85,7 @@ class DatsDataTest extends TestCase
             "post" => $person["post"]
         ]);
 
-        $this->call('patch','/'.$person["id"],[
+        $response = $this->actingAs($user)->put('person/'.$person["id"],[
             "name" => "",
             "email" => $person["email"],
             "post" => $person["post"]
@@ -93,5 +101,6 @@ class DatsDataTest extends TestCase
             "email" => $person["email"],
             "post" => $person["post"]
         ]);
+        $response->assertStatus(302);
     }
 }

@@ -11,6 +11,7 @@
             <a href="/"><h1>Employdat</h1></a>
         </div>
         <div class="container">
+            <h3>Add new person:</h3>
             <form action="{{route('person.store')}}" method="POST">
                 @csrf
                 <div class="form-group">
