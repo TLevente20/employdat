@@ -20,12 +20,13 @@
         @endauth
     </div>
     <div class="container">
+        <h3>Users:</h3>
         <p>Search for a user:</p>
         <form action="{{ route('user.search') }}" method="GET" role="search">
             <input class="search" type="text" name="name" placeholder="Enter a name" id="txb">
             <button id="b1">Search</button>
         </form>
-        <button onclick="window.location='{{route('profile.create')}} '">Register new user</button>        
+        <button onclick="window.location='{{route('profile.create')}} '">Register new user</button>       
         <table>
             <thead>
                 <tr>
@@ -45,6 +46,9 @@
                                 @csrf
                                 @method('DELETE')
                                 <button type="button" onclick="confirmAction('{{ $user->id }}')">Delete</button>
+                            </form>
+                            <form class="opbutton" action="{{route('profile.edit',$user->id)}}">
+                                <button type="submit">Edit</button>
                             </form>
                         </th>
                         <th>{{$user->name}}</th>

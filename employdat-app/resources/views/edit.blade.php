@@ -18,12 +18,12 @@
             @method('PATCH')
             <div class="form-group">
                 <label for="name">Name:</label>
-                <input type="text" class="form-control" id="name" name="name" required value="{{$person->name}}">
+                <input type="text" class="form-controll" id="name" name="name" required value="{{$person->name}}">
             </div>
             
             <div class="form-group">
                 <label for="email">Email Address:</label>
-                <input type="email" class="form-control" id="email" name="email" required value="{{$person->email}}">
+                <input type="email" class="form-controll" id="email" name="email" required value="{{$person->email}}">
                 @if($errors->any())
                 @foreach($errors->all() as $error)
                 <p id="error">{{$error}}</p>
@@ -33,7 +33,7 @@
             
             <div class="form-group">
                 <label for="post">Post in Company:</label>
-                <input type="text" class="form-control" id="post" name="post" required value="{{$person->post}}">
+                <input type="text" class="form-controll" id="post" name="post" required value="{{$person->post}}">
             </div>
             <!--
             <div class="form-group">
