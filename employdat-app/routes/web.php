@@ -1,15 +1,13 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\DatsController;
 use App\Http\Controllers\CvController;
-use App\Http\Controllers\PersonController;
-use App\Http\Controllers\SearchController;
-use App\Http\Controllers\UserSearchController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PersonController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\UserOrderController;
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\UserSearchController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,20 +28,20 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/search', [SearchController::class, 'index'])->name('search_name');
     Route::get('/profile/search', [UserSearchController::class, 'index'])->name('user.search');
-    
-    Route::get('/insert',function(){return view('insert');})->name('insert');
 
-    Route::resource('person',PersonController::class);
+    Route::get('/insert', function () {
+        return view('insert');
+    })->name('insert');
 
-    Route::resource('cv',CvController::class);
-    
-    Route::resource('profile',ProfileController::class);  
+    Route::resource('person', PersonController::class);
+
+    Route::resource('cv', CvController::class);
+
+    Route::resource('profile', ProfileController::class);
 });
-
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
-
 
 require __DIR__.'/auth.php';

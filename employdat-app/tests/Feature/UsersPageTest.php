@@ -10,7 +10,7 @@ class UsersPageTest extends TestCase
 {
     use RefreshDatabase;
 
-     public function test_profile_page_is_displayed(): void
+    public function test_profile_page_is_displayed(): void
     {
         $user = User::factory()->create();
 
@@ -31,7 +31,8 @@ class UsersPageTest extends TestCase
 
         $response->assertOk();
     }
-    public function test_home_ordering_exist():void
+
+    public function test_home_ordering_exist(): void
     {
         $user = User::factory()->create();
         $response = $this->actingAs($user)->get('/profile/order/name');
@@ -46,14 +47,15 @@ class UsersPageTest extends TestCase
         $response = $this->actingAs($user)->get('/profile/order/email_verified_at');
         $response->assertOk();
     }
-    public function test_if_search_list_the_results():void
+
+    public function test_if_search_list_the_results(): void
     {
         $personToFind = User::factory()->create();
         $personNotToFind = User::factory()->create();
 
         $response = $this->actingAs($personToFind)->get('/profile/search?name='.$personToFind->toArray()['name']);
-        
-        $response->assertViewHas('users', function ($collection) use ($personToFind){
+
+        $response->assertViewHas('users', function ($collection) use ($personToFind) {
             return $collection->contains($personToFind);
         });
         $response->assertDontSee($personNotToFind->toArray()['name']);
