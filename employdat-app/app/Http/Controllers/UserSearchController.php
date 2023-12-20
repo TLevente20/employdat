@@ -10,12 +10,12 @@ class UserSearchController extends Controller
     {
         $name = request('name');
         if ($name == '') {
-            return view('users', ['users' => User::get(),
+            return view('users', ['users' => User::cursorPaginate(8),
                 //->get()
             ]);
         }
 
-        return view('users', ['users' => User::where('name', 'LIKE', "%$name%")->get(),
+        return view('users', ['users' => User::where('name', 'LIKE', "%$name%")->cursorPaginate(8),
         ]);
     }
 }

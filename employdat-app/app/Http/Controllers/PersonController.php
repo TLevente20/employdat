@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cv;
 use App\Models\Person;
 use Illuminate\Http\Request;
 

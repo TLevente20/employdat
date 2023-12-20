@@ -14,7 +14,7 @@ class ProfileController extends Controller
 {
     public function index(Request $request): View
     {
-        return view('users', ['users' => User::all(),
+        return view('users', ['users' => User::cursorPaginate(8),
             //->get()
         ]);
     }
@@ -41,7 +41,7 @@ class ProfileController extends Controller
 
         Auth::login($user);
 
-        return view('users', ['users' => User::all(),
+        return view('users', ['users' => User::cursorPaginate(8),
             //->get()
         ]);
     }
@@ -69,7 +69,7 @@ class ProfileController extends Controller
             'email' => $request->email,
         ]);
 
-        return view('users', ['users' => User::all(),
+        return view('users', ['users' => User::cursorPaginate(8),
             //->get()
         ]);
     }
@@ -85,7 +85,7 @@ class ProfileController extends Controller
 
         User::destroy($id);
 
-        return view('users', ['users' => User::all(),
+        return view('users', ['users' => User::cursorPaginate(8),
             //->get()
         ]);
     }

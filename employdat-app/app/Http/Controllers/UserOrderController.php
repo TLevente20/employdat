@@ -9,7 +9,7 @@ class UserOrderController extends Controller
     public function index($orderBy)
     {
         return view('users', ['users' => User::orderBy($orderBy)
-            ->get(),
+            ->cursorPaginate(8),
             //->get()
         ]);
     }
