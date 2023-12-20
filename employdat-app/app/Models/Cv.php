@@ -9,14 +9,17 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Cv extends Model
 {
     use HasFactory;
-    protected $table ='cvs';
+
+    protected $table = 'cvs';
+
     public $timestamps = false;
 
-    public function person():BelongsTo{
-        return $this->belongsTo(Person::class,'person_id');
+    public function person(): BelongsTo
+    {
+        return $this->belongsTo(Person::class, 'person_id');
     }
 
-    public $fillable =[
-        'body','person_id'
+    public $fillable = [
+        'body', 'person_id',
     ];
 }

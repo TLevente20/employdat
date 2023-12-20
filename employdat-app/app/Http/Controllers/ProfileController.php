@@ -2,22 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileUpdateRequest;
-use Illuminate\Http\RedirectResponse;
+use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\View\View;
-use App\Models\User;
-use Illuminate\Validation\Rules;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Auth\Events\Registered;
+use Illuminate\Validation\Rules;
+use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
     public function index(Request $request): View
     {
-        return view('users',['users'=>User::all()
+        return view('users', ['users' => User::cursorPaginate(8),
             //->get()
         ]);
     }
@@ -25,7 +22,7 @@ class ProfileController extends Controller
     public function create(Request $request): View
     {
         return view('register');
-            
+
     }
 
     public function store(Request $request): View
@@ -44,7 +41,7 @@ class ProfileController extends Controller
 
         Auth::login($user);
 
-        return view('users',['users'=>User::all()
+        return view('users', ['users' => User::cursorPaginate(8),
             //->get()
         ]);
     }
@@ -52,26 +49,27 @@ class ProfileController extends Controller
     /**
      * Display the user's profile form.
      */
-    public function edit(Request $request,$id){
-        
-        return view('profileEdit',['user'=>User::where('id',$id)->first()]);
+    public function edit(Request $request, $id)
+    {
+
+        return view('profileEdit', ['user' => User::where('id', $id)->first()]);
     }
 
     /**
      * Update the user's profile information.
      */
-    public function update(Request $request,$id): View
+    public function update(Request $request, $id): View
     {
-        $this->validate($request,array(
-            'name'=>'required',
-            'email'=>"required|email|unique:users,email,$id",
-        ));
-        User::where('id',$id)->update([
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => "required|email|unique:users,email,$id",
+        ]);
+        User::where('id', $id)->update([
             'name' => $request->name,
             'email' => $request->email,
         ]);
 
-        return view('users',['users'=>User::all()
+        return view('users', ['users' => User::cursorPaginate(8),
             //->get()
         ]);
     }
@@ -79,7 +77,7 @@ class ProfileController extends Controller
     /**
      * Delete the user's account.
      */
-    public function destroy(Request $request,$id): View
+    public function destroy(Request $request, $id): View
     {
         /* $request->validateWithBag('userDeletion', [
             'password' => ['required', 'current_password'],
@@ -87,7 +85,7 @@ class ProfileController extends Controller
 
         User::destroy($id);
 
-        return view('users',['users'=>User::all()
+        return view('users', ['users' => User::cursorPaginate(8),
             //->get()
         ]);
     }

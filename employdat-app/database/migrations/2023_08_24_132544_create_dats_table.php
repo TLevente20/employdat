@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->string('email');
             $table->string('post');
-            
+
         });
         Schema::create('cvs', function (Blueprint $table) {
             $table->id();
