@@ -14,7 +14,7 @@ class ProfileController extends Controller
 {
     public function index(Request $request): View
     {
-        return view('users', ['users' => User::cursorPaginate(8),
+        return view('users', ['users' => User::get(),
             //->get()
         ]);
     }
@@ -23,27 +23,6 @@ class ProfileController extends Controller
     {
         return view('register');
 
-    }
-
-    public function store(Request $request): View
-    {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
-        event(new Registered($user));
-
-        Auth::login($user);
-
-        return view('users', ['users' => User::cursorPaginate(8),
-            //->get()
-        ]);
     }
 
     /**
@@ -69,7 +48,7 @@ class ProfileController extends Controller
             'email' => $request->email,
         ]);
 
-        return view('users', ['users' => User::cursorPaginate(8),
+        return view('users', ['users' => User::get(),
             //->get()
         ]);
     }
@@ -85,7 +64,7 @@ class ProfileController extends Controller
 
         User::destroy($id);
 
-        return view('users', ['users' => User::cursorPaginate(8),
+        return view('users', ['users' => User::get(),
             //->get()
         ]);
     }
