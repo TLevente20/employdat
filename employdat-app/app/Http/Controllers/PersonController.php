@@ -14,7 +14,7 @@ class PersonController extends Controller
     public function index()
     {
         return view('home', ['people' => Person::with('cvs')
-            ->cursorPaginate(8),
+            ->get(),
             //->get()
         ]);
     }
@@ -38,40 +38,17 @@ class PersonController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required|email|unique:people,email',
-            'post' => 'required',
-        ]);
-        Person::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'post' => $request->post,
-        ]);
-
-        return view('home', ['people' => Person::with('cvs')
-            ->cursorPaginate(8),
-            //->get()
-        ]);
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
     public function edit($id)
     {
-
         return view('edit', ['person' => Person::where('id', $id)->first()]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    /* public function update(Request $request, $id)
     {
         $this->validate($request, [
             'name' => 'required',
@@ -88,7 +65,7 @@ class PersonController extends Controller
             ->cursorPaginate(8),
             //->get()
         ]);
-    }
+    } */
 
     /**
      * Remove the specified resource from storage.
@@ -98,7 +75,7 @@ class PersonController extends Controller
         Person::destroy($id);
 
         return redirect()->route('home', ['people' => Person::with('cvs')
-            ->cursorPaginate(8),
+            ->get(),
             //->get()
         ]);
     }

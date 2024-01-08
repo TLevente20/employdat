@@ -11,13 +11,13 @@ class SearchController extends Controller
         $name = request('name');
         if ($name == '') {
             return redirect()->route('home', ['people' => Person::with('cvs')
-                ->cursorPaginate(8),
+                ->get(),
             ]);
         }
 
         return view('home', ['people' => Person::with('cvs')
             ->where('name', 'LIKE', "%$name%")->orWhere('post', 'LIKE', "%$name%")
-            ->cursorPaginate(8),
+            ->get(),
             //->get()
         ]);
     }
