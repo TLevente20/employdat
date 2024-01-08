@@ -48,7 +48,8 @@
             
             <div class=" text-center lg:text-left mt-5">
                 <button type="submit" class=" bg-blue-500 hover:bg-blue-600 border-0 rounded cursor-pointer text-white px-5 py-2">Create</button>
-                <button class=" bg-slate-400 hover:bg-slate-500 border-0 rounded cursor-pointer text-white px-5 py-2" onclick="window.location='{{route('profile.index')}} '" type="button">Cancel</button>
+                <button class=" bg-slate-400 hover:bg-slate-500 border-0 rounded cursor-pointer text-white px-5 py-2"
+                        wire:click="cancel" type="button">Cancel</button>
             </div>
         </form>
     </div>

@@ -37,7 +37,6 @@ class PersonController extends Controller
             ->first(), 'message' => 'CV is created!']);
     }
 
-
     /**
      * Show the form for editing the specified resource.
      */
